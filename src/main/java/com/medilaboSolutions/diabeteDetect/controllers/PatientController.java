@@ -1,21 +1,20 @@
 package com.medilaboSolutions.diabeteDetect.controllers;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.medilaboSolutions.diabeteDetect.modeles.Patient;
 import com.medilaboSolutions.diabeteDetect.services.PatientService;
-
-import jakarta.validation.Valid;
 
 /**
  * Controller class for managing Patient entities.
@@ -23,7 +22,8 @@ import jakarta.validation.Valid;
  * Handles CRUD operations for Patient objects, including listing, adding,
  * updating, and deleting Patient.
  */
-@Controller
+@RestController
+@RequestMapping("/patients")
 public class PatientController {
   @Autowired
   PatientService patientService;
@@ -31,120 +31,65 @@ public class PatientController {
   /**
    * Some javadoc :
    * 
-   * This method displays the list of all patients.
+   * This method retrieves a list of all patients.
    *
-   * @param model the model to which attributes are added for rendering in the
-   *              view.
-   * @return String representing the view name for displaying the patient list.
+   * @return a list of all patients.
    */
-  @RequestMapping("/patient/list")
-  public String home(Model model) {
-    model.addAttribute("authentication", SecurityContextHolder.getContext().getAuthentication());
-    model.addAttribute("patients", patientService.findAll());
-    return "patient/list";
+  @GetMapping("")
+  public List<Patient> getAllPatient() {
+    return patientService.findAll();
   }
 
   /**
    * Some javadoc :
    * 
-   * This method displays the form for adding a new patient.
+   * This method retrieves a patient by its id.
    *
-   * @param patient the patient object to be added.
-   * @return String representing the view name for displaying the add patient
-   *         form.
+   * @return patient if he is known from our database or null.
    */
-  @GetMapping("/patient/add")
-  public String addPatientForm(Patient patient) {
-    return "patient/add";
+  @GetMapping("/{id}")
+  public Patient getPatientById(@PathVariable int id) {
+    return patientService.findById(id);
   }
 
   /**
    * Some javadoc :
    * 
-   * This method validates patient data, saves it to the database, and redirects
-   * to
-   * the patient list.
+   * Adds a new patient to the database.
    *
-   * @param patient the Patient object to be validated and saved.
-   * @param result  the binding result for validation errors.
-   * @param model   the model to which attributes are added for rendering in the
-   *                view.
-   * @return String representing the view name for redirecting to the patient list
-   *         or
-   *         displaying validation errors.
+   * @param patient the patient object to add.
+   * @return the added patient object.
    */
-  @PostMapping("/patient/validate")
-  public String validate(@Valid Patient patient, BindingResult result, Model model) {
-    if (result.hasErrors()) {
-      model.addAttribute("result", result);
-      return "patient/add";
-    }
-    patientService.savePatient(patient);
-    return "redirect:/patient/list";
+  @PostMapping
+  public Patient addPatient(@RequestBody Patient patient) {
+    return patientService.savePatient(patient);
   }
 
   /**
    * Some javadoc :
    * 
-   * This method displays the form for updating an existing patient.
+   * Updates an existing patient in the database.
    *
-   * @param id    the ID of the patient to be updated.
-   * @param model the model to which attributes are added for rendering in the
-   *              view.
-   * @return String representing the view name for displaying the update patient
-   *         form.
+   * @param id             the ID of the patient to update.
+   * @param patientDetails the updated patient details.
+   * @return the updated patient object if successful, otherwise null.
    */
-  @GetMapping("/patient/update/{id}")
-  public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-    model.addAttribute("authentication", SecurityContextHolder.getContext().getAuthentication());
-    Optional<Patient> optionalPatient = patientService.findById(id);
-    if (optionalPatient.isPresent()) {
-      model.addAttribute("patient", optionalPatient.get());
-      return "patient/update";
-    } else {
-      return "404";
-    }
+  @PutMapping("/{id}")
+  public Patient updatePatient(@PathVariable int id, @RequestBody Patient patientDetails) {
+    return patientService.updatePatient(id, patientDetails);
   }
 
   /**
    * Some javadoc :
    * 
-   * This method updates patient data, saves it to the database, and redirects to
-   * the
-   * patient list.
+   * Deletes a patient from the database by ID.
    *
-   * @param id      the ID of the patient to be updated.
-   * @param patient the Patient object with updated data.
-   * @param result  the binding result for validation errors.
-   * @param model   the model to which attributes are added for rendering in the
-   *                view.
-   * @return String representing the view name for redirecting to the patient list
-   *         or
-   *         displaying validation errors.
+   * @param id the ID of the patient to delete.
+   * @return ResponseEntity indicating the success of the deletion operation.
    */
-  @PostMapping("/patient/update/{id}")
-  public String updatePatient(@PathVariable("id") Integer id, @Valid Patient patient,
-      BindingResult result, Model model) {
-    if (result.hasErrors()) {
-      model.addAttribute("result", result);
-      return "patient/update";
-    }
-    patientService.savePatient(patient);
-    return "redirect:/patient/list";
-  }
-
-  /**
-   * Some javadoc :
-   * 
-   * This method deletes a patient by its ID and redirects to the patient list.
-   *
-   * @param id the ID of the patient to be deleted.
-   * @return String representing the view name for redirecting to the patient
-   *         list.
-   */
-  @GetMapping("/patient/delete/{id}")
-  public String deletePatient(@PathVariable("id") Integer id) {
+  @DeleteMapping("/{id}")
+  public ResponseEntity<?> deletePatient(@PathVariable int id) {
     patientService.deleteById(id);
-    return "redirect:/patient/list";
+    return ResponseEntity.ok().build();
   }
 }

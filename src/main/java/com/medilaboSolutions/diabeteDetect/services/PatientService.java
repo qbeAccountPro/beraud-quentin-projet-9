@@ -63,9 +63,32 @@ public class PatientService {
    * Retrieves a Patient entity by its ID.
    *
    * @param id the ID of the Patient entity to retrieve.
-   * @return Optional containing the Patient object, or empty if not found.
+   * @return Optional containing the Patient object, or null if not found.
    */
-  public Optional<Patient> findById(int id) {
-    return patientRepository.findById(id);
+  public Patient findById(int id) {
+    Optional<Patient> optionalPatient = patientRepository.findById(id);
+    if (optionalPatient.isPresent()) {
+      return optionalPatient.get();
+    } else {
+      return null;
+    }
+  }
+
+  /**
+   * Some javadoc :
+   * 
+   * Updates a Patient entity identified by its ID.
+   *
+   * @param id      the ID of the Patient entity to update.
+   * @param patient the updated Patient object.
+   * @return the updated Patient object if it exists, otherwise null.
+   */
+  public Patient updatePatient(int id, Patient patient) {
+    if (patientRepository.findById(id).isPresent()) {
+      patient.setId(id);
+      return patientRepository.save(patient);
+    } else {
+      return null;
+    }
   }
 }

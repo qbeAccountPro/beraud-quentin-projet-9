@@ -1,11 +1,11 @@
 package com.medilaboSolutions.diabeteDetect.modeles;
 
-import org.springframework.data.annotation.Id;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import jakarta.validation.constraints.NotBlank;
@@ -32,15 +32,14 @@ public class Patient {
   @Column(name = "id")
   private int id;
 
-  @Column(name = "firstname")
+  @Column(name = "first_name")
   @NotBlank(message = "Firstname is mandatory")
   @Pattern(regexp = "^[a-zA-Z'-]{1,30}$", message = "Invalid first name")
   private String firstname;
 
-  @Column(name = "lastname")
+  @Column(name = "last_name")
   @NotBlank(message = "Lastname is mandatory")
   @Pattern(regexp = "^[a-zA-Z'-]{1,30}$", message = "Invalid last name")
-
   private String lastname;
 
   @Column(name = "gender")
@@ -48,7 +47,7 @@ public class Patient {
   @Pattern(regexp = "^(M|F)$", message = "Invalid gender, Only biological sex is agreed : F or M")
   private String gender;
 
-  @Column(name = "dateofbirth")
+  @Column(name = "date_of_birth")
   @NotBlank(message = "Date of birth is mandatory")
   @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "Invalid date format. Please use yyyy-mm-dd")
   private String dateofbirth;
