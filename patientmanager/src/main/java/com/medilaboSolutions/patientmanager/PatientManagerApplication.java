@@ -1,12 +1,12 @@
-package com.mediaSolutions.gateway;
+package com.medilaboSolutions.patientmanager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GatewayApplication {
+public class PatientManagerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GatewayApplication.class, args);
+		SpringApplication.run(PatientManagerApplication.class, args);
 	}
 }

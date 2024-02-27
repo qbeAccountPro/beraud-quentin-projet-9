@@ -1,4 +1,4 @@
-package com.medilaboSolutions.diabeteDetect.units;
+package com.medilaboSolutions.patientmanager.units;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.medilaboSolutions.diabeteDetect.DiabeteDetectApplication;
+import com.medilaboSolutions.patientmanager.PatientManagerApplication;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = DiabeteDetectApplication.class)
+@SpringBootTest(classes = PatientManagerApplication.class)
 class DiabeteDetectApplicationTests {
 
 	@Autowired
-	private DiabeteDetectApplication application;
+	private PatientManagerApplication application;
 
 	@Test
 	void contextLoads() {

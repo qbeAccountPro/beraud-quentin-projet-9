@@ -1,4 +1,4 @@
-package com.medilaboSolutions.diabeteDetect.integrations;
+package com.medilaboSolutions.patientmanager.integrations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -15,9 +15,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.medilaboSolutions.diabeteDetect.controller.PatientController;
-import com.medilaboSolutions.diabeteDetect.modeles.Patient;
-import com.medilaboSolutions.diabeteDetect.services.PatientService;
+import com.medilaboSolutions.patientmanager.controller.PatientController;
+import com.medilaboSolutions.patientmanager.modeles.Patient;
+import com.medilaboSolutions.patientmanager.services.PatientService;
 import org.springframework.http.MediaType;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -59,19 +59,27 @@ public class PatientIntegrationTest {
   }
 
   @Test
-  int testAddPatient() throws Exception {
+  int testAddPatient() {
     // Serialize
     ObjectMapper objectMapper = new ObjectMapper();
-    String patientJson = objectMapper.writeValueAsString(patientTest);
 
     // AddPatient :
-    MvcResult result = mvc.perform(MockMvcRequestBuilders.post("/patient")
-        .content(patientJson)
-        .contentType(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk()).andReturn();
+    MvcResult result;
+    Patient patient;
+    try {
+      String patientJson = objectMapper.writeValueAsString(patientTest);
 
-    // Deserialize
-    Patient patient = objectMapper.readValue(result.getResponse().getContentAsString(), Patient.class);
+      result = mvc.perform(MockMvcRequestBuilders.post("/patient")
+          .content(patientJson)
+          .contentType(MediaType.APPLICATION_JSON))
+          .andExpect(status().isOk()).andReturn();
+
+      // Deserialize
+       patient = objectMapper.readValue(result.getResponse().getContentAsString(), Patient.class);
+    } catch (Exception e) {
+      e.printStackTrace();
+      patient = null;
+    }
 
     int id = patient.getId();
 
@@ -85,16 +93,16 @@ public class PatientIntegrationTest {
     assertEquals(patientTest.getAddress(), savedPatient.getAddress());
     assertEquals(patientTest.getPhone(), savedPatient.getPhone());
 
-    return id;
+    return id;   
   }
 
   @Test
   void testDeletePatient() throws Exception {
     // Call AddPatient to save one :
-    int id = testAddPatient();
+    int id = testAddPatient(); 
 
     // Delete the same patient previously added :
-    mvc.perform(MockMvcRequestBuilders.delete("/{id}", id)
+    mvc.perform(MockMvcRequestBuilders.delete("/patient/{id}", id)
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andReturn();
@@ -126,7 +134,8 @@ public class PatientIntegrationTest {
   @Test
   void testGetPatientById() throws Exception {
     // Call AddPatient to save one :
-    int id = testAddPatient();
+    int id = testAddPatient(); 
+
 
     // Delete the same patient previously added :
     MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/patient/{id}", id)
@@ -148,6 +157,7 @@ public class PatientIntegrationTest {
   void testUpdatePatient() throws Exception {
     // Call AddPatient to save one :
     int id = testAddPatient();
+
 
     Patient newPatient = patientTest;
     newPatient.setAddress("New Address");

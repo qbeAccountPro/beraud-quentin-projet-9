@@ -1,0 +1,13 @@
+################### Hibernate Configuration ##########################
+server:
+  port: 9002
+
+################### Spring Configuration #############################
+spring:
+  application:
+    name: microservice-clientui
+
+################### Log Configuration ################################
+logging:
+  level:
+    org.springframework: INFO

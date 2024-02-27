@@ -1,9 +1,10 @@
-package com.medilaboSolutions.diabeteDetect.controller;
+package com.medilaboSolutions.patientmanager.controller;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.medilaboSolutions.diabeteDetect.modeles.Patient;
-import com.medilaboSolutions.diabeteDetect.services.PatientService;
+import com.medilaboSolutions.patientmanager.modeles.Patient;
+import com.medilaboSolutions.patientmanager.services.PatientService;
 
 /**
  * Controller class for managing Patient entities.
@@ -22,8 +23,8 @@ import com.medilaboSolutions.diabeteDetect.services.PatientService;
  * Handles CRUD operations for Patient objects, including listing, adding,
  * updating, and deleting Patient.
  */
-@RestController
 @RequestMapping("/patient")
+@RestController
 public class PatientController {
   @Autowired
   PatientService patientService;
@@ -31,9 +32,9 @@ public class PatientController {
   /**
    * Some javadoc :
    * 
-   * This method retrieves a list of all patients.
+   * This method retrieves a list of all patient.
    *
-   * @return a list of all patients.
+   * @return a list of all patient.
    */
   @GetMapping("")
   public List<Patient> getAllPatient() {

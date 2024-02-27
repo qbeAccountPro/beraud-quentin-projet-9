@@ -1,4 +1,4 @@
-package com.medilaboSolutions.diabeteDetect.modeles;
+package com.medilaboSolutions.patientmanager.modeles;
 
 
 import jakarta.persistence.Column;

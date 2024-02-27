@@ -1,4 +1,4 @@
-package com.medilaboSolutions.diabeteDetect.units.controllers;
+package com.medilaboSolutions.patientmanager.units.controllers;
 
 import org.mockito.InjectMocks;
 
@@ -11,9 +11,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.medilaboSolutions.diabeteDetect.controller.PatientController;
-import com.medilaboSolutions.diabeteDetect.modeles.Patient;
-import com.medilaboSolutions.diabeteDetect.services.PatientService;
+import com.medilaboSolutions.patientmanager.controller.PatientController;
+import com.medilaboSolutions.patientmanager.modeles.Patient;
+import com.medilaboSolutions.patientmanager.services.PatientService;
 
 @ExtendWith(MockitoExtension.class)
 public class PatientControllerTest {

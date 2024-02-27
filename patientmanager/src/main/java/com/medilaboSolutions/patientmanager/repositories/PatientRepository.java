@@ -1,8 +1,8 @@
-package com.medilaboSolutions.diabeteDetect.repositories;
+package com.medilaboSolutions.patientmanager.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.medilaboSolutions.diabeteDetect.modeles.Patient;
+import com.medilaboSolutions.patientmanager.modeles.Patient;
 
 /**
  * Some Javadoc :

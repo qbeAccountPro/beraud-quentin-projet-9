@@ -1,4 +1,4 @@
-package com.medilaboSolutions.diabeteDetect.services;
+package com.medilaboSolutions.patientmanager.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.medilaboSolutions.diabeteDetect.modeles.Patient;
-import com.medilaboSolutions.diabeteDetect.repositories.PatientRepository;
+import com.medilaboSolutions.patientmanager.modeles.Patient;
+import com.medilaboSolutions.patientmanager.repositories.PatientRepository;
 
 import jakarta.validation.Valid;
 

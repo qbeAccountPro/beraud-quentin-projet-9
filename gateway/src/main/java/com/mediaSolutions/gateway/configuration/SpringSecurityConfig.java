@@ -4,37 +4,39 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Configuration;/*
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity; */
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.crypto.password.PasswordEncoder;/* 
+import org.springframework.security.web.SecurityFilterChain;*/
 
 /**
  * Some javadoc :
  * 
  * This class represents the configuration of Spring Security.
  */
-@Configuration
-@EnableWebSecurity
-public class SpringSecurityConfig {
+/* @Configuration
+@EnableWebSecurity */
 
-  @Autowired DataSource dataSource;
+public class SpringSecurityConfig {
+/* 
+  @Autowired
+  DataSource dataSource; // TODO : add data.sql file to add user for testing
 
   /**
    * Some javadoc :
    * 
    * This method represents the configuration of authentification fron a database.
-   */
+   *//* 
   @Autowired
   public void configAuthentification(AuthenticationManagerBuilder auth) throws Exception {
     auth.jdbcAuthentication()
         .passwordEncoder(new BCryptPasswordEncoder())
         .dataSource(dataSource)
-        .usersByUsernameQuery("SELECT username, password, 'true' FROM users WHERE username=?")
-        .authoritiesByUsernameQuery("SELECT username, 'true' FROM users WHERE username=?");
+        .usersByUsernameQuery("SELECT username, password, 'true' FROM user WHERE username=?")
+        .authoritiesByUsernameQuery("SELECT username, 'true' FROM user WHERE username=?");
   }
 
   /**
@@ -49,13 +51,11 @@ public class SpringSecurityConfig {
    * @param http represent the basic configuration.
    * 
    * @return the filter chain.
-   */
+   *//* 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
     http.authorizeHttpRequests(auth -> {
-      auth.requestMatchers("/bidList/**").permitAll();
-      auth.requestMatchers("/css/**", "/js/**").permitAll();
       auth.anyRequest().authenticated();
     })
         .logout(logout -> logout
@@ -64,7 +64,7 @@ public class SpringSecurityConfig {
             .permitAll())
 
         .formLogin(form -> form
-            .defaultSuccessUrl("/bidList/list", true)
+            .defaultSuccessUrl("/", true)
             .permitAll());
 
     return http.build();
@@ -77,9 +77,9 @@ public class SpringSecurityConfig {
    * BCryptPasswordEncoder
    * 
    * @return the encoding passwords.
-   */
+   *//* 
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
-  }
+  } */
 }

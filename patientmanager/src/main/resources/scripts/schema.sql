@@ -1,7 +1,7 @@
 -- Active: 1695052083510@@127.0.0.1@3306
-CREATE DATABASE IF NOT EXISTS diabeteDetect;
+CREATE DATABASE IF NOT EXISTS patientmanager;
 
-USE diabeteDetect;
+USE patientmanager;
 
 CREATE TABLE IF NOT EXISTS 
 	patient (
