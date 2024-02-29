@@ -5,7 +5,7 @@ server:
 ################### Spring Configuration #############################
 spring:
   application:
-    name: microservice-clientui
+    name: MICROSERVICE-CLIENTUI
 
 ################### Log Configuration ################################
 logging:
