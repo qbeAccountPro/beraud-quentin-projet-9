@@ -10,7 +10,7 @@ spring:
         - id: MICROSERVICE-CLIENTUI
           uri: http://localhost:9002  
           predicates:
-            - Path=/patient/list/**
+            - Path=/patient/list/**           
         - id: MICROSERVICE-CLIENTUI-CSS
           uri: http://localhost:9002/static
           predicates:
