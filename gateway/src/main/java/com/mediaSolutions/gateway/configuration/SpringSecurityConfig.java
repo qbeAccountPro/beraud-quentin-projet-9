@@ -22,7 +22,7 @@ import org.springframework.security.web.server.authentication.logout.ServerLogou
  * Some javadoc :
  * 
  * This class represents the configuration of Spring Security.
- */ 
+ */
 @Configuration
 @EnableWebFluxSecurity
 public class SpringSecurityConfig {
@@ -34,6 +34,11 @@ public class SpringSecurityConfig {
    */
   @Bean
   public MapReactiveUserDetailsService userDetailsService() {
+    // TODO : Spring Security doit servir à contrôler les accès via authentification. Ne pas
+    //        oublier d'encrypter les mots de passe. N’hésitez pas à utiliser une méthode
+    //        d’authentification HTTP basique et des utilisateurs en mémoire.
+    // https://course.oc-static.com/projects/DAJava_P9/DA%20JAVA%20P9%20Guide%20d'e%CC%81tapes%20cle%CC%81s.pdf
+    // 
     UserDetails user = User.withUsername("user").password(passwordEncoder().encode("user")).build();
     return new MapReactiveUserDetailsService(user);
   }
