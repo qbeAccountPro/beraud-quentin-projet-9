@@ -1,6 +1,7 @@
 package com.mediaSolutions.note.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +14,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mediaSolutions.note.bean.PatientBean;
 import com.mediaSolutions.note.model.Note;
+import com.mediaSolutions.note.proxy.MicroservicePatientProxy;
 import com.mediaSolutions.note.service.NoteService;
 
 @RestController
 @RequestMapping("/note")
 public class NoteController {
+
+  private final MicroservicePatientProxy patientProxy;
+
+  public NoteController(MicroservicePatientProxy patientProxy) {
+    this.patientProxy = patientProxy;
+  }
 
   @Autowired
   NoteService noteService;
@@ -57,7 +66,18 @@ public class NoteController {
    */
   @PostMapping
   public Note addNote(@RequestBody Note note) {
-    return noteService.saveNote(note);
+    Optional<PatientBean> optionalPatient = Optional.of(new PatientBean());
+    try {
+      optionalPatient = patientProxy.getPatientById(Integer.parseInt(note.getPatientid()));
+    } catch (Exception e) {
+      optionalPatient = Optional.empty();
+      return null; // Case of the wrong value inside patient id
+    }
+    if (optionalPatient.isPresent()) {
+      return noteService.saveNote(note);
+    } else {
+      return null; // Case of the non-existent patient
+    }
   }
 
   /**
@@ -87,5 +107,4 @@ public class NoteController {
     noteService.deleteById(id);
     return ResponseEntity.ok().build();
   }
-
 }

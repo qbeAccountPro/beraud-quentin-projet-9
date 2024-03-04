@@ -28,8 +28,8 @@
 			<a href="/patient/add" class="btn btn-primary btn-sm mb-3">Add New</a>
 			<table class="table table-bordered">
 				<thead>
-					<tr>
-						<th>id</th>
+					<tr><!-- 
+						<th>id</th> -->
 						<th>First Name</th>
 						<th>Last Name</th>
 						<th>Gender</th>
@@ -40,15 +40,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="patient : ${patients}">
-						<td style="width: 10%" th:text="${patient.id}"></td>
+					<tr th:each="patient : ${patients}"><!-- 
+						<td style="width: 10%" th:text="${patient.id}"></td> -->
 						<td th:text="${patient.firstname}"></td>
 						<td th:text="${patient.lastname}"></td>
 						<td th:text="${patient.gender}"></td>
 						<td th:text="${patient.dateofbirth}"></td>
 						<td th:text="${patient.address}"></td>
-						<td th:text="${patient.phone}"></td>
+						<td th:text="${patient.phone}" class="phone-number"></td>
 						<td style="width: 15%" class="text-center">
+							<a th:href="@{/patient/note/{id}(id=${patient.id})}">Note</a>&nbsp;|&nbsp;
 							<a th:href="@{/patient/update/{id}(id=${patient.id})}">Edit</a>&nbsp;|&nbsp;
 							<a th:href="@{/patient/delete/{id}(id=${patient.id})}">Delete</a>
 						</td>
@@ -57,6 +58,24 @@
 			</table>
 		</div>
 	</div>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			var phoneElements = document.querySelectorAll('.phone-number');
+			phoneElements.forEach(function (element) {
+				var phoneNumber = element.textContent.trim();
+				element.textContent = formatPhoneNumber(phoneNumber);
+			});
+		});
+
+		function formatPhoneNumber(phone) {
+			var match = phone.match(/^(\d{3})(\d{3})(\d{4})$/);
+			if (match) {
+				return match[1] + '-' + match[2] + '-' + match[3];
+			}
+			return phone;
+		}
+	</script>
 </body>
 
 </html>

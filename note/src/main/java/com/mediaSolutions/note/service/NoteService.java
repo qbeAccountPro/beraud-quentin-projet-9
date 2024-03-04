@@ -1,5 +1,7 @@
 package com.mediaSolutions.note.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,13 +31,17 @@ public class NoteService {
   }
 
   public Note saveNote(Note note) {
+    note.setDate(getDate());
     return noteRepository.save(note);
   }
 
   public Note updateNote(String id, Note note) {
-    if (noteRepository.findById(id).isPresent()) {
-      note.setId(id);
-      return noteRepository.save(note);
+    Optional<Note> OptionalNote = noteRepository.findById(id);
+    if (OptionalNote.isPresent()) {
+      Note currentNote = OptionalNote.get();
+      currentNote.setNote(note.getNote());
+      currentNote.setDate(getDate());
+      return noteRepository.save(currentNote);
     } else {
       return null;
     }
@@ -44,4 +50,8 @@ public class NoteService {
   public void deleteById(String id) {
     noteRepository.deleteById(id);
   }
+
+  public static String getDate() {
+        return LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
 }
