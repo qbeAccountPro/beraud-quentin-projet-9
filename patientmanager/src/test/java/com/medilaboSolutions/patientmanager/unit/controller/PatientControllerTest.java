@@ -1,4 +1,4 @@
-package com.medilaboSolutions.patientmanager.units.controllers;
+package com.medilaboSolutions.patientmanager.unit.controller;
 
 import org.mockito.InjectMocks;
 
@@ -12,8 +12,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.medilaboSolutions.patientmanager.controller.PatientController;
-import com.medilaboSolutions.patientmanager.modeles.Patient;
-import com.medilaboSolutions.patientmanager.services.PatientService;
+import com.medilaboSolutions.patientmanager.model.Patient;
+import com.medilaboSolutions.patientmanager.service.PatientService;
 
 @ExtendWith(MockitoExtension.class)
 public class PatientControllerTest {

@@ -1,4 +1,4 @@
-package com.medilaboSolutions.patientmanager.units.services;
+package com.medilaboSolutions.patientmanager.unit.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -17,9 +17,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.medilaboSolutions.patientmanager.modeles.Patient;
-import com.medilaboSolutions.patientmanager.repositories.PatientRepository;
-import com.medilaboSolutions.patientmanager.services.PatientService;
+import com.medilaboSolutions.patientmanager.model.Patient;
+import com.medilaboSolutions.patientmanager.repository.PatientRepository;
+import com.medilaboSolutions.patientmanager.service.PatientService;
 
 @ExtendWith(MockitoExtension.class)
 public class PatientServiceTest {

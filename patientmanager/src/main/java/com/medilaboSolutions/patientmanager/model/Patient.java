@@ -1,5 +1,4 @@
-package com.medilaboSolutions.patientmanager.modeles;
-
+package com.medilaboSolutions.patientmanager.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,9 +13,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-/** 
- *  Some Javadoc :
+/**
+ * Some Javadoc :
  * 
  * This class represent the patient entity.
  * 

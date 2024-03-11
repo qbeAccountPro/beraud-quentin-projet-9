@@ -4,7 +4,7 @@
 
 <head>
 	<meta charset="utf-8" />
-	<title>Patient List</title>
+	<title>Note List</title>
 	<link rel="stylesheet" href="../../css/bootstrap.min.css">
 </head>
 
@@ -22,10 +22,10 @@
 			</div>
 		</div>
 		<div class="row">
-			<h2>Patient List</h2>
+			<h2>Patient detail :</h2>
 		</div>
+
 		<div class="row">
-			<a href="/patient/add" class="btn btn-primary btn-sm mb-3">Add New</a>
 			<table class="table table-bordered">
 				<thead>
 					<tr>
@@ -35,27 +35,50 @@
 						<th>Date of birth</th>
 						<th>Address</th>
 						<th>Phone</th>
-						<th>Option</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="patient : ${patients}">
 						<td th:text="${patient.firstname}"></td>
 						<td th:text="${patient.lastname}"></td>
 						<td th:text="${patient.gender}"></td>
 						<td th:text="${patient.dateofbirth}"></td>
 						<td th:text="${patient.address}"></td>
 						<td th:text="${patient.phone}" class="phone-number"></td>
-						<td style="width: 15%" class="text-center">
-							<a th:href="@{/patient/{id}/note(id=${patient.id})}">Note</a>&nbsp;|&nbsp;
-							<a th:href="@{/patient/{id}/update(id=${patient.id})}">Edit</a>&nbsp;|&nbsp;
-							<a th:href="@{/patient/{id}/delete(id=${patient.id})}">Delete</a>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="row">
+			<h2>Patient notes :</h2>
+		</div>
+
+		<div class="row">
+			<a th:href="@{/patient/{patientid}/note/add(patientid=${patient.id})}" class="btn btn-primary btn-sm mb-3 text-center">Add New</a>
+			</td>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th style="width: 10%; text-align: center;">Date</th>
+						<th>Note</th>
+						<th style="width: 20%; text-align: center;">Option</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="note : ${notes}">
+						<td th:text="${note.date}" style="vertical-align: middle;"></td>
+						<td th:text="${note.note}"></td>
+						<td style="width: 15%; vertical-align: middle;" class="text-center">
+							<a th:href="@{/patient/{patientid}/note/{noteId}/update(patientid=${patient.id}, noteId=${note.id})}">Edit</a>&nbsp;|&nbsp;
+							<a th:href="@{/patient/{patientid}/note/{noteId}/delete(patientid=${patient.id}, noteId=${note.id})}">Delete</a>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
+
 
 	<script>
 		document.addEventListener("DOMContentLoaded", function () {

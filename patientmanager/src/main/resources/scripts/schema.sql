@@ -12,12 +12,3 @@ CREATE TABLE IF NOT EXISTS
 		date_of_birth VARCHAR(10) NOT NULL,
 		address VARCHAR(250),
 		phone VARCHAR(10));
-
-/*CREATE TABLE
-	user (
-		Id tinyint(4) NOT NULL AUTO_INCREMENT,
-		username VARCHAR(125),
-		password VARCHAR(125),
-		fullname VARCHAR(125),
-		role VARCHAR(125),
-		PRIMARY KEY (Id));*/

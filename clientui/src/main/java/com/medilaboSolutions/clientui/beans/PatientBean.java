@@ -4,12 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/** 
- *  Some Javadoc :
- * 
- * This class represent the bean patient entity.
- * 
- */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

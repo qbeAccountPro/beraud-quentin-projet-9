@@ -1,4 +1,4 @@
-package com.medilaboSolutions.patientmanager.services;
+package com.medilaboSolutions.patientmanager.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,15 +6,15 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.medilaboSolutions.patientmanager.modeles.Patient;
-import com.medilaboSolutions.patientmanager.repositories.PatientRepository;
+import com.medilaboSolutions.patientmanager.model.Patient;
+import com.medilaboSolutions.patientmanager.repository.PatientRepository;
 
 import jakarta.validation.Valid;
 
 /**
  * Some Javadoc :
  * 
- * Service class for Pateint entities.
+ * Service class for Patient entities.
  * Provides methods to perform CRUD operations on BidList objects.
  */
 @Service

@@ -1,4 +1,4 @@
-package com.medilaboSolutions.patientmanager.units;
+package com.medilaboSolutions.patientmanager.unit;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;

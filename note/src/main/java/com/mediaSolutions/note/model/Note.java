@@ -8,6 +8,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+/**
+ * Some Javadoc :
+ * 
+ * This class represent the Note entity.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,7 +21,6 @@ import lombok.NoArgsConstructor;
 public class Note {
   @Id
   private String id;
-  @NotBlank(message = "Patient id is mandatory")
   private String patientid; 
   @NotBlank(message = "Note is mandatory")
   private String note;

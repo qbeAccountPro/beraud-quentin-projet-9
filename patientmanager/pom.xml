@@ -71,7 +71,7 @@
 				<version>0.8.10</version>
 				<configuration>
 					<excludes>
-						<exclude>**/modeles/**</exclude>
+						<exclude>**/model/**</exclude>
 						<exclude>**/DiabeteDetectApplication.class</exclude>
 					</excludes>
 				</configuration>

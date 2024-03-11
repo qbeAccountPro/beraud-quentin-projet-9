@@ -16,16 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mediaSolutions.note.bean.PatientBean;
 import com.mediaSolutions.note.model.Note;
-import com.mediaSolutions.note.proxy.MicroservicePatientProxy;
+import com.mediaSolutions.note.proxy.PatientProxy;
 import com.mediaSolutions.note.service.NoteService;
 
 @RestController
 @RequestMapping("/note")
 public class NoteController {
 
-  private final MicroservicePatientProxy patientProxy;
+  private final PatientProxy patientProxy;
 
-  public NoteController(MicroservicePatientProxy patientProxy) {
+  public NoteController(PatientProxy patientProxy) {
     this.patientProxy = patientProxy;
   }
 
@@ -42,6 +42,18 @@ public class NoteController {
   @GetMapping("")
   public List<Note> getAllNote() {
     return noteService.findAll();
+  }
+
+    /**
+   * Some javadoc :
+   * 
+   * This method retrieves a list of all note.
+   *
+   * @return a list of all note.
+   */
+  @GetMapping("/patientid/{patientid}")
+  public List<Note> getAllNoteFromPatientId(@PathVariable String patientid) {
+    return noteService.findByPatientId(patientid);
   }
 
   /**
@@ -99,7 +111,7 @@ public class NoteController {
    * 
    * Deletes a note from the database by ID.
    *
-   * @param id the ID of the note to delete.
+   * @param id the note IDto delete.
    * @return ResponseEntity indicating the success of the deletion operation.
    */
   @DeleteMapping("/{id}")

@@ -13,7 +13,7 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/patient/update/{id}(id=${patientBean.id})}" th:object="${patientBean}" method="post" class="form-horizontal" style="width: 100%">
+		<form action="#" th:action="@{/patient/{id}/update(id=${patientBean.id})}" th:object="${patientBean}" method="post" class="form-horizontal" style="width: 100%">
 
 			<div class="form-group">
 				<label for="firstname" class="col-sm-2 control-label">First name</label>

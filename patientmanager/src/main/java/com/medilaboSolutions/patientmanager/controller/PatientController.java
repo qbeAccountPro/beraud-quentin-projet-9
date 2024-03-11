@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.medilaboSolutions.patientmanager.modeles.Patient;
-import com.medilaboSolutions.patientmanager.services.PatientService;
+import com.medilaboSolutions.patientmanager.model.Patient;
+import com.medilaboSolutions.patientmanager.service.PatientService;
 
 /**
  * Controller class for managing Patient entities.

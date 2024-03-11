@@ -1,4 +1,4 @@
-package com.medilaboSolutions.patientmanager.integrations;
+package com.medilaboSolutions.patientmanager.integration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -16,8 +16,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.medilaboSolutions.patientmanager.controller.PatientController;
-import com.medilaboSolutions.patientmanager.modeles.Patient;
-import com.medilaboSolutions.patientmanager.services.PatientService;
+import com.medilaboSolutions.patientmanager.model.Patient;
+import com.medilaboSolutions.patientmanager.service.PatientService;
+
 import org.springframework.http.MediaType;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -75,7 +76,7 @@ public class PatientIntegrationTest {
           .andExpect(status().isOk()).andReturn();
 
       // Deserialize
-       patient = objectMapper.readValue(result.getResponse().getContentAsString(), Patient.class);
+      patient = objectMapper.readValue(result.getResponse().getContentAsString(), Patient.class);
     } catch (Exception e) {
       e.printStackTrace();
       patient = null;
@@ -93,13 +94,13 @@ public class PatientIntegrationTest {
     assertEquals(patientTest.getAddress(), savedPatient.getAddress());
     assertEquals(patientTest.getPhone(), savedPatient.getPhone());
 
-    return id;   
+    return id;
   }
 
   @Test
   void testDeletePatient() throws Exception {
     // Call AddPatient to save one :
-    int id = testAddPatient(); 
+    int id = testAddPatient();
 
     // Delete the same patient previously added :
     mvc.perform(MockMvcRequestBuilders.delete("/patient/{id}", id)
@@ -134,8 +135,7 @@ public class PatientIntegrationTest {
   @Test
   void testGetPatientById() throws Exception {
     // Call AddPatient to save one :
-    int id = testAddPatient(); 
-
+    int id = testAddPatient();
 
     // Delete the same patient previously added :
     MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/patient/{id}", id)
@@ -158,7 +158,6 @@ public class PatientIntegrationTest {
     // Call AddPatient to save one :
     int id = testAddPatient();
 
-
     Patient newPatient = patientTest;
     newPatient.setAddress("New Address");
     newPatient.setPhone("3633554455");
@@ -168,7 +167,7 @@ public class PatientIntegrationTest {
     ObjectMapper objectMapper = new ObjectMapper();
     String newPatientJson = objectMapper.writeValueAsString(newPatient);
 
-    // Delete the same patient previously added :
+    // Update the same patient previously added :
     mvc.perform(MockMvcRequestBuilders.put("/patient/{id}", id)
         .content(newPatientJson)
         .contentType(MediaType.APPLICATION_JSON))
