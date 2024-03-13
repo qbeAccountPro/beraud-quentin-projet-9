@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.medilaboSolutions.clientui.beans.PatientBean;
-import com.medilaboSolutions.clientui.proxies.patientProxy;
+import com.medilaboSolutions.clientui.proxies.PatientProxy;
 
 import javax.validation.Valid;
 
 @Controller
 public class PatientController {
 
-  private final patientProxy patientProxy;
+  private final PatientProxy patientProxy;
 
-  public PatientController(patientProxy patientProxy) {
+  public PatientController(PatientProxy patientProxy) {
     this.patientProxy = patientProxy;
   }
 

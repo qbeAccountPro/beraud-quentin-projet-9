@@ -83,12 +83,12 @@ public class NoteController {
       optionalPatient = patientProxy.getPatientById(Integer.parseInt(note.getPatientid()));
     } catch (Exception e) {
       optionalPatient = Optional.empty();
-      return null; // Case of the wrong value inside patient id
+      return null; // TODO : Case of the wrong value inside patient id
     }
     if (optionalPatient.isPresent()) {
       return noteService.saveNote(note);
     } else {
-      return null; // Case of the non-existent patient
+      return null; // TODO : Case of the non-existent patient
     }
   }
 

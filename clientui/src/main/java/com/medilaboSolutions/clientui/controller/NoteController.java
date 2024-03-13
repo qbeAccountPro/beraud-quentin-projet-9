@@ -14,20 +14,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.medilaboSolutions.clientui.beans.NoteBean;
 import com.medilaboSolutions.clientui.beans.PatientBean;
+import com.medilaboSolutions.clientui.proxies.DiabetesAssessmentProxy;
 import com.medilaboSolutions.clientui.proxies.NoteProxy;
-import com.medilaboSolutions.clientui.proxies.patientProxy;
+import com.medilaboSolutions.clientui.proxies.PatientProxy;
 
 import javax.validation.Valid;
 
 @Controller
 public class NoteController {
 
-  private final patientProxy patientProxy;
+  private final PatientProxy patientProxy;
   private final NoteProxy noteProxy;
+  private final DiabetesAssessmentProxy diabetesAssessmentProxy;
 
-  public NoteController(patientProxy patientProxy, NoteProxy noteProxy) {
+  public NoteController(PatientProxy patientProxy, NoteProxy noteProxy,
+      DiabetesAssessmentProxy diabetesAssessmentProxy) {
     this.patientProxy = patientProxy;
     this.noteProxy = noteProxy;
+    this.diabetesAssessmentProxy = diabetesAssessmentProxy;
   }
 
   @GetMapping("/patient/{patientid}/note")
@@ -37,6 +41,7 @@ public class NoteController {
     if (patient.isPresent()) {
       model.addAttribute("patient", patient.get());
       model.addAttribute("notes", notes);
+      model.addAttribute("diabetesAssessment", diabetesAssessmentProxy.getDiabetesAssessment(patient.get().getId()));
       return "note/list";
     } else {
       return "404";
@@ -92,7 +97,7 @@ public class NoteController {
   @PostMapping("/patient/{patientid}/note/{noteid}/validate")
   public String validateUpdateNote(@PathVariable("patientid") Integer patientid, @PathVariable("noteid") String noteid,
       @Valid NoteBean ntoeBean, BindingResult result, Model model) {
-        System.out.println("entry controller test");
+    System.out.println("entry controller test");
     if (result.hasErrors()) {
       model.addAttribute("result", result);
       return "note/update";
