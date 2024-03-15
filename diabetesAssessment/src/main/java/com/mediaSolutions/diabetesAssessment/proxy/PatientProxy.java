@@ -11,7 +11,7 @@ import java.util.Optional;
 /**
  * Some Javadoc :
  * 
- * This class allows access to the REST client Patient manager.
+ * This class allows access to the REST client microservice patientmanager.
  * 
  */
 @ComponentScan

@@ -1,0 +1,5 @@
+FROM amazoncorretto:17-alpine-jdk
+WORKDIR /src
+COPY target/patientmanager-0.0.1-SNAPSHOT.jar patientmanager.jar
+EXPOSE 9001
+CMD ["java", "-jar", "patientmanager.jar"]

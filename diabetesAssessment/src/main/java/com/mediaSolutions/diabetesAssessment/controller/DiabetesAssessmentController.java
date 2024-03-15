@@ -14,6 +14,15 @@ import com.mediaSolutions.diabetesAssessment.proxy.NoteProxy;
 import com.mediaSolutions.diabetesAssessment.proxy.PatientProxy;
 import com.mediaSolutions.diabetesAssessment.service.DiabetesAssessmentService;
 
+/**
+ * Some Javadoc:
+ * 
+ * Controller for handling diabetes assessment related endpoints.
+ * 
+ * This controller class provides one endpoint for retrieving diabetes
+ * assessment information based on patient ID.
+ * 
+ */
 @RestController
 @RequestMapping("/diabetesAssessment")
 public class DiabetesAssessmentController {
@@ -29,6 +38,15 @@ public class DiabetesAssessmentController {
     this.noteProxy = noteProxy;
   }
 
+  /**
+   * Some Javadoc:
+   * 
+   * Endpoint for retrieving diabetes assessment based on patient ID.
+   * 
+   * @param patientid The ID of the patient for whom to retrieve diabetes
+   *                  assessment.
+   * @return The diabetes assessment result.
+   */
   @GetMapping("/patientid/{patientid}")
   public String getDiabetesAssessment(@PathVariable String patientid) {
     int patientID = Integer.parseInt(patientid);

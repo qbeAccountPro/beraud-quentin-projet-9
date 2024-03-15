@@ -1,0 +1,5 @@
+FROM amazoncorretto:17-alpine-jdk
+WORKDIR /src
+COPY target/diabetesAssessment-0.0.1-SNAPSHOT.jar diabetesAssessment.jar
+EXPOSE 9004
+CMD ["java", "-jar", "diabetesAssessment.jar"]

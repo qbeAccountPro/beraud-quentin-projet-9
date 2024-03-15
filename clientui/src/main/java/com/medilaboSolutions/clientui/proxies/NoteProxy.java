@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.medilaboSolutions.clientui.beans.NoteBean;
 
 @ComponentScan
-@FeignClient(name = "microservice-note", url = "http://localhost:9003")
+@FeignClient(name = "microservice-notemanager", url = "http://localhost:9003")
 public interface NoteProxy {
   @GetMapping(value = "/note/patientid/{patientid}")
   List<NoteBean> getAllNote(@PathVariable("patientid") int patientid);

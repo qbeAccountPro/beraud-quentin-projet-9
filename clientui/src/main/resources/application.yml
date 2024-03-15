@@ -11,3 +11,5 @@ spring:
 logging:
   level:
     org.springframework: INFO
+
+microservice-patientmanager: microservice-patientmanager:9001

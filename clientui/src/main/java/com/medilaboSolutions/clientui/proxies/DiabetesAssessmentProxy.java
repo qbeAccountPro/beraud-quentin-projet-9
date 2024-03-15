@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @ComponentScan
-@FeignClient(name = "microservice-diabetesAssessment", url = "http://localhost:9004")
+@FeignClient(name = "microservice-diabetesassessment", url = "http://localhost:9004")
 public interface DiabetesAssessmentProxy {
 
   @GetMapping(value = "/diabetesAssessment/patientid/{patientid}")

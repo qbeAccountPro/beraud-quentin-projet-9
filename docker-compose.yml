@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  microservice-patientmanager:
+    image: microservice-patientmanager
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/diabetedetect
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - 9001:9001
+  microservice-cleintui:
+    image: microservice-cleintui
+    ports:
+      - 9002:9002

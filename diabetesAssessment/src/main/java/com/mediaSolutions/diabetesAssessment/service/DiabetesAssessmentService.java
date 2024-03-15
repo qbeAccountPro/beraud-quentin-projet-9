@@ -12,13 +12,30 @@ import com.mediaSolutions.diabetesAssessment.constant.AgeStates;
 import com.mediaSolutions.diabetesAssessment.constant.DiabetesStates;
 import com.mediaSolutions.diabetesAssessment.constant.TriggersTerms;
 
+/**
+ * Some Javadoc:
+ * 
+ * Service class for performing diabetes assessment calculations.
+ * 
+ * This service class provides one method for calculating diabetes assessment
+ * based on patient information and notes containing trigger terms.
+ * 
+ */
 @Service
 public class DiabetesAssessmentService {
 
+  /**
+   * Some Javadoc:
+   * 
+   * Calculates diabetes assessment based on patient information and notes.
+   * 
+   * @param patient The patient for whom to calculate diabetes assessment.
+   * @param notes   The list of notes containing trigger terms.
+   * @return The diabetes assessment result.
+   */
   public String getDiabetesAssessment(PatientBean patient, List<NoteBean> notes) {
 
-    int age = getAgeFromBirthDate(patient.getDateofbirth());
-    String ageState = getAgeState(age);
+    String ageState = getAgeState(patient.getDateofbirth());
     int triggers = getTriggers(notes);
     if (notes.size() == 0) {
       return DiabetesStates.NONE;
@@ -67,7 +84,15 @@ public class DiabetesAssessmentService {
     }
   }
 
-  private int getTriggers(List<NoteBean> notes) {
+  /**
+   * Some Javadoc:
+   * 
+   * Counts the number of trigger terms present in all notes.
+   * 
+   * @param notes The list of notes containing potentially trigger terms.
+   * @return The count of trigger terms present in the notes.
+   */
+  public int getTriggers(List<NoteBean> notes) {
     int triggersCount = 0;
     List<String> triggersTerms = TriggersTerms.TRIGGERS_TERMS;
     for (String trigger : triggersTerms) {
@@ -82,12 +107,9 @@ public class DiabetesAssessmentService {
     return triggersCount;
   }
 
-  private int getAgeFromBirthDate(String dateOfBirthString) {
-    return Period.between(LocalDate.parse(dateOfBirthString), LocalDate.now()).getYears();
-  }
-
-  private String getAgeState(int age) {
-    if (age >= 30) {
+  public String getAgeState(String dateOfBirthString) {
+    int age = Period.between(LocalDate.parse(dateOfBirthString), LocalDate.now()).getYears();
+    if (age <= 30) {
       return AgeStates.YOUNG;
     } else {
       return AgeStates.ELDERLY;
