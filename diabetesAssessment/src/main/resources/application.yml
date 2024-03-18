@@ -1,17 +1,18 @@
 ################### Hibernate Configuration ##########################
 server:
-  port: 9002
+  port: 9004
 
 ################### Spring Configuration #############################
 spring:
   application:
-    name: microservice-clientui
+    name: microservice-diabetesassessment
 
 ################### Log Configuration ################################
 logging:
   level:
     org.springframework: INFO
 
+################### Ports Configuration ################################
+
 microservice-patientmanager: microservice-patientmanager:9001
 microservice-notemanager: microservice-notemanager:9003
-microservice-diabetesassessment: microservice-diabetesassessment:9004

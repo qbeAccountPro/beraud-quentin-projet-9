@@ -1,11 +1,16 @@
 ################### Hibernate Configuration ##########################
 server:
-  port: 9002
+  port: 9003
 
 ################### Spring Configuration #############################
 spring:
   application:
-    name: microservice-clientui
+    name: microservice-notemanager
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database : note
 
 ################### Log Configuration ################################
 logging:
@@ -13,5 +18,3 @@ logging:
     org.springframework: INFO
 
 microservice-patientmanager: microservice-patientmanager:9001
-microservice-notemanager: microservice-notemanager:9003
-microservice-diabetesassessment: microservice-diabetesassessment:9004

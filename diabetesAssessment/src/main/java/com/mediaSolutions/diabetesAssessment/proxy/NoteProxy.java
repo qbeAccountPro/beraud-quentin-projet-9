@@ -16,7 +16,7 @@ import java.util.List;
  * 
  */
 @ComponentScan
-@FeignClient(name = "microservice-notemanager", url = "http://localhost:9003")
+@FeignClient(name = "microservice-notemanager", url = "${microservice-notemanager:9003}")
 public interface NoteProxy {
   @GetMapping(value = "/note/patientid/{patientid}")
   List<NoteBean> getAllNote(@PathVariable("patientid") int patientid);

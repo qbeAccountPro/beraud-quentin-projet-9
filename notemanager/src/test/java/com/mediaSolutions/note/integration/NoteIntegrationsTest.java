@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -24,6 +25,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.when;
 
 import org.springframework.http.MediaType;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -33,11 +36,19 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import org.junit.jupiter.api.TestInstance.Lifecycle;
+import java.util.Optional;
 
+import javax.swing.text.html.Option;
+
+import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
 @SpringBootTest
 @TestInstance(Lifecycle.PER_CLASS)
+@TestPropertySource(properties = {
+    "microservice-patientmanager=http://localhost:9001"
+})
 public class NoteIntegrationsTest {
 
   @Autowired
@@ -51,6 +62,7 @@ public class NoteIntegrationsTest {
 
   private static Note note = new Note();
   private static PatientBean patient = new PatientBean();
+  private String noteID;
 
   private MockMvc mvc;
 
@@ -80,8 +92,8 @@ public class NoteIntegrationsTest {
   @Test
   void testGetAllNote() throws Exception {
     // Arrange :
-    testAddNote1();
-    testAddNote1();
+    testAddNote();
+    testAddNote();
 
     // Act :
     MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/note")
@@ -102,7 +114,7 @@ public class NoteIntegrationsTest {
   @TransactionalEventListener
   void testGetAllNoteFromPatientId() throws Exception {
     // Arrange :
-    testAddNote1();
+    testAddNote();
     List<Note> expectedListNote = noteService.findByPatientId(note.getPatientid());
 
     // Act :
@@ -124,11 +136,11 @@ public class NoteIntegrationsTest {
   @Test
   void testGetNoteById() throws Exception {
     // Arrange :
-    String noteId = testAddNote1();
-    Note expectedNote = noteService.findById(noteId);
+    testAddNote();
+    Note expectedNote = noteService.findById(noteID);
 
     // Act :
-    MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/note/{noteId}", noteId)
+    MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/note/{noteID}", noteID)
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andReturn();
@@ -142,7 +154,7 @@ public class NoteIntegrationsTest {
   }
 
   @Test
-  String testAddNote1() throws Exception {
+  public void testAddNote() throws Exception {
     // Arrange - Serialize :
     ObjectMapper objectMapper = new ObjectMapper();
     String noteJson = objectMapper.writeValueAsString(note);
@@ -154,37 +166,37 @@ public class NoteIntegrationsTest {
         .andExpect(status().isOk()).andReturn();
 
     // Deserialize
-    String noteId = objectMapper.readValue(result.getResponse().getContentAsString(), Note.class).getId();
+    noteID = objectMapper.readValue(result.getResponse().getContentAsString(), Note.class).getId();
 
-    Note noteSaved = noteService.findById(noteId);
+    Note noteSaved = noteService.findById(noteID);
 
-    assertNotNull(noteId);
+    assertNotNull(noteID);
     assertEquals(note.getDate(), noteSaved.getDate());
     assertEquals(note.getNote(), noteSaved.getNote());
     assertEquals(note.getPatientid(), noteSaved.getPatientid());
 
-    return noteSaved.getId();
+    noteID = noteSaved.getId();
   }
 
   @Test
   void testUpdateNote() throws Exception {
     // Arrange :
-    String noteId = testAddNote1();
+    testAddNote();
 
     Note newNote = note;
-    newNote.setId(noteId);
+    newNote.setId(noteID);
     newNote.setNote("Bob n'est pas venu");
 
     ObjectMapper objectMapper = new ObjectMapper();
     String newNoteJson = objectMapper.writeValueAsString(newNote);
     // Act :
-    mvc.perform(MockMvcRequestBuilders.put("/note/{noteId}", noteId)
+    mvc.perform(MockMvcRequestBuilders.put("/note/{noteID}", noteID)
         .content(newNoteJson)
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andReturn();
 
-    Note noteSaved = noteService.findById(noteId);
+    Note noteSaved = noteService.findById(noteID);
     // Assert :
     assertEquals(noteSaved, newNote);
   }
@@ -192,16 +204,16 @@ public class NoteIntegrationsTest {
   @Test
   void testDeleteNote() throws Exception {
     // Arrange - Call add note :
-    String noteId = testAddNote1();
+    testAddNote();
 
     // Act :
-    mvc.perform(MockMvcRequestBuilders.delete("/note/{noteId}", noteId)
+    mvc.perform(MockMvcRequestBuilders.delete("/note/{noteID}", noteID)
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andReturn();
 
     // Assert :
-    assertNull(noteService.findById(noteId));
+    assertNull(noteService.findById(noteID));
   }
 
   @AfterAll

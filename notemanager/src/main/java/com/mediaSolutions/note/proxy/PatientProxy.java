@@ -15,7 +15,7 @@ import java.util.Optional;
  * 
  */
 @ComponentScan
-@FeignClient(name = "microservice-patientmanager", url = "http://localhost:9001")
+@FeignClient(name = "microservice-patientmanager", url = "${microservice-patientmanager}")
 public interface PatientProxy {
   @GetMapping(value = "/patient/{id}")
   Optional<PatientBean> getPatientById(@PathVariable("id") int id); }

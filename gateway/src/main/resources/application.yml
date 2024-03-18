@@ -7,23 +7,28 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: MICROSERVICE-CLIENTUI
-          uri: http://localhost:9002  
+        - id: clientui
+          uri: http://localhost:9002
           predicates:
-            - Path=/patient/list/**           
-        - id: MICROSERVICE-CLIENTUI-CSS
+            - Path=/patient/**
+        - id: clientui-css
           uri: http://localhost:9002/static
           predicates:
             - Path=/css/**
-
   application:
-    name: MICROSERVICE-GATEWAY
-  
+    name: microservice-gateway
 
 ################### Log Configuration ################################
 logging:
   level:
-    root: WARN
-    org.springframework: INFO
-    org.springframework.web: INFO
-    org.springframework.security: INFO
+    org:
+      springframework:
+        cloud:
+          gateway: TRACE
+
+################### Ports Configuration ################################
+
+microservice-patientmanager: microservice-patientmanager:9001
+microservice-clientui: microservice-clientui:9002
+microservice-notemanager: microservice-notemanager:9003
+microservice-diabetesassessment: microservice-diabetesassessment:9004

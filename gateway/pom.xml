@@ -11,7 +11,7 @@
 	</parent>
 
 	<groupId>com.mediaSolutions</groupId>
-	<artifactId>demo</artifactId>
+	<artifactId>gateway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Gateway</name>
 	<description>This microservice is dedicated to the gateway</description>

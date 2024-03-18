@@ -7,9 +7,38 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/diabetedetect
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-    ports:
+    expose:
       - 9001:9001
-  microservice-cleintui:
-    image: microservice-cleintui
-    ports:
+
+  microservice-clientui:
+    image: microservice-clientui
+    expose:
       - 9002:9002
+
+  microservice-notemanager:
+    image: microservice-notemanager
+    expose:
+      - 9003:9003
+    environment:
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_DATA_MONGODB_HOST: host.docker.internal
+      SPRING_DATA_MONGODB_DATABASE: note
+
+  microservice-diabetesassessment:
+    image: microservice-diabetesassessment
+    expose:
+      - 9004:9004
+
+  microservice-gateway:
+    image: microservice-gateway
+    ports:
+      - 9000:9000
+    depends_on:
+    - microservice-clientui
+    environment:
+      SPRING_CLOUD_GATEWAY_ROUTES[0]_ID: microservice-clientui
+      SPRING_CLOUD_GATEWAY_ROUTES[0]_URI: http://microservice-clientui:9002
+      SPRING_CLOUD_GATEWAY_ROUTES[0]_PREDICATES[0]: Path=/patient/**
+      SPRING_CLOUD_GATEWAY_ROUTES[1]_ID: microservice-clientui-css
+      SPRING_CLOUD_GATEWAY_ROUTES[1]_URI: http://microservice-clientui:9002/static
+      SPRING_CLOUD_GATEWAY_ROUTES[1]_PREDICATES[0]: Path=/css/**
