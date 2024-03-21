@@ -65,6 +65,7 @@ public class SpringSecurityConfig {
           form.authenticationSuccessHandler(authenticationSuccessHandler());
         })
         .logout(logout -> {
+          logout.logoutUrl("/app-logout");
           logout.logoutSuccessHandler(logoutSuccessHandler());
         }).csrf(ServerHttpSecurity.CsrfSpec::disable).build();
   }

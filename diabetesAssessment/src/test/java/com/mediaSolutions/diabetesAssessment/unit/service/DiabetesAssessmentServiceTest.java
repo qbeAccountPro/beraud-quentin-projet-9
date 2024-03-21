@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -39,10 +40,10 @@ public class DiabetesAssessmentServiceTest {
   }
 
   @Test
-  public void testGetDiabetesAssessmentFor_H_Young_Trigger2() {
+  public void testGetDiabetesAssessmentFor_M_Young_Trigger2() {
     // Arrange :
     PatientBean patient = new PatientBean();
-    patient.setGender("H");
+    patient.setGender("M");
     patient.setDateofbirth("2023-01-01");
 
     NoteBean note1 = new NoteBean();
@@ -59,7 +60,7 @@ public class DiabetesAssessmentServiceTest {
   public void testGetDiabetesAssessmentFor_H_Young_Trigger3() {
     // Arrange :
     PatientBean patient = new PatientBean();
-    patient.setGender("H");
+    patient.setGender("M");
     patient.setDateofbirth("2023-01-01");
 
     NoteBean note1 = new NoteBean();
@@ -76,7 +77,7 @@ public class DiabetesAssessmentServiceTest {
   public void testGetDiabetesAssessmentFor_H_Young_Trigger4() {
     // Arrange :
     PatientBean patient = new PatientBean();
-    patient.setGender("H");
+    patient.setGender("M");
     patient.setDateofbirth("2023-01-01");
 
     NoteBean note1 = new NoteBean(), note2 = new NoteBean();
@@ -95,7 +96,7 @@ public class DiabetesAssessmentServiceTest {
   public void testGetDiabetesAssessmentFor_H_Young_Trigger5() {
     // Arrange :
     PatientBean patient = new PatientBean();
-    patient.setGender("H");
+    patient.setGender("M");
     patient.setDateofbirth("2023-01-01");
 
     NoteBean note1 = new NoteBean(), note2 = new NoteBean();
@@ -184,10 +185,10 @@ public class DiabetesAssessmentServiceTest {
   }
 
   @Test
-  public void testGetDiabetesAssessmentFor_HF_Elderly_Trigger1() {
+  public void testGetDiabetesAssessmentFor_MF_Elderly_Trigger1() {
     // Arrange :
     PatientBean patientH = new PatientBean();
-    patientH.setGender("H");
+    patientH.setGender("M");
     patientH.setDateofbirth("1970-01-01");
 
     PatientBean patientF = new PatientBean();
@@ -210,11 +211,11 @@ public class DiabetesAssessmentServiceTest {
   }
 
   @Test
-  public void testGetDiabetesAssessmentFor_HF_Elderly_Trigger2() {
+  public void testGetDiabetesAssessmentFor_MF_Elderly_Trigger2() {
 
     // Arrange :
     PatientBean patientH = new PatientBean();
-    patientH.setGender("H");
+    patientH.setGender("M");
     patientH.setDateofbirth("1970-01-01");
 
     PatientBean patientF = new PatientBean();
@@ -236,11 +237,11 @@ public class DiabetesAssessmentServiceTest {
   }
 
   @Test
-  public void testGetDiabetesAssessmentFor_HF_Elderly_Trigger5() {
+  public void testGetDiabetesAssessmentFor_MF_Elderly_Trigger5() {
 
     // Arrange :
     PatientBean patientH = new PatientBean();
-    patientH.setGender("H");
+    patientH.setGender("M");
     patientH.setDateofbirth("1970-01-01");
 
     PatientBean patientF = new PatientBean();
@@ -262,11 +263,11 @@ public class DiabetesAssessmentServiceTest {
   }
 
   @Test
-  public void testGetDiabetesAssessmentFor_HF_Elderly_Trigger6() {
+  public void testGetDiabetesAssessmentFor_MF_Elderly_Trigger6() {
 
     // Arrange :
     PatientBean patientH = new PatientBean();
-    patientH.setGender("H");
+    patientH.setGender("M");
     patientH.setDateofbirth("1970-01-01");
 
     PatientBean patientF = new PatientBean();
@@ -288,11 +289,11 @@ public class DiabetesAssessmentServiceTest {
   }
 
   @Test
-  public void testGetDiabetesAssessmentFor_HF_Elderly_Trigger7() {
+  public void testGetDiabetesAssessmentFor_MF_Elderly_Trigger7() {
 
     // Arrange :
     PatientBean patientH = new PatientBean();
-    patientH.setGender("H");
+    patientH.setGender("M");
     patientH.setDateofbirth("1970-01-01");
 
     PatientBean patientF = new PatientBean();
@@ -314,11 +315,11 @@ public class DiabetesAssessmentServiceTest {
   }
 
   @Test
-  public void testGetDiabetesAssessmentFor_HF_Elderly_Trigger8() {
+  public void testGetDiabetesAssessmentFor_MF_Elderly_Trigger8() {
 
     // Arrange :
     PatientBean patientH = new PatientBean();
-    patientH.setGender("H");
+    patientH.setGender("M");
     patientH.setDateofbirth("1970-01-01");
 
     PatientBean patientF = new PatientBean();
@@ -338,5 +339,4 @@ public class DiabetesAssessmentServiceTest {
     assertEquals(DiabetesStates.EARLY_ONSET, diabetesAssessmentService.getDiabetesAssessment(patientH, notes));
     assertEquals(DiabetesStates.EARLY_ONSET, diabetesAssessmentService.getDiabetesAssessment(patientF, notes));
   }
-
 }

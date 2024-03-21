@@ -1,4 +1,4 @@
-package com.mediaSolutions.note.model;
+package com.mediaSolutions.notemanager.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

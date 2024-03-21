@@ -21,8 +21,8 @@ public class TriggersTerms {
       "Fumeuse",
       "Anormal",
       "Cholestérol",
-      "Vertiges",
+      "Vertige",
       "Rechute",
       "Réaction",
-      "Anticorps");
+      "Anticorps"); 
 }

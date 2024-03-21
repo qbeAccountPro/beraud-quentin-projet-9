@@ -38,7 +38,7 @@ public class PatientServiceTest {
     patientTest.setId(3);
     patientTest.setFirstname("George");
     patientTest.setLastname("Wayne");
-    patientTest.setGender("H");
+    patientTest.setGender("M");
     patientTest.setDateofbirth("1990-02-20");
     patientTest.setAddress("Nowhere");
     patientTest.setPhone("0655554488");

@@ -1,4 +1,4 @@
-package com.mediaSolutions.note.unit.service;
+package com.mediaSolutions.notemanager.unit.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -15,9 +15,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.mediaSolutions.note.model.Note;
-import com.mediaSolutions.note.repository.NoteRepository;
-import com.mediaSolutions.note.service.NoteService;
+import com.mediaSolutions.notemanager.model.Note;
+import com.mediaSolutions.notemanager.repository.NoteRepository;
+import com.mediaSolutions.notemanager.service.NoteService;
 
 @ExtendWith(MockitoExtension.class)
 public class NoteServiceTest {

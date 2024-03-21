@@ -43,7 +43,7 @@ public class DiabetesAssessmentService {
       switch (ageState) {
         case AgeStates.YOUNG:
           switch (patient.getGender()) {
-            case "H":
+            case "M":
               if (triggers < 3) {
                 return DiabetesStates.NONE;
               } else if (triggers < 5) {
@@ -97,7 +97,7 @@ public class DiabetesAssessmentService {
     List<String> triggersTerms = TriggersTerms.TRIGGERS_TERMS;
     for (String trigger : triggersTerms) {
       for (NoteBean note : notes) {
-        if (note.getNote().contains(trigger)) {
+        if (containsIgnoreCase(note.getNote(), trigger)) {
           triggersCount++;
           break; // Quit the iteration if the trigger is present, An another note with the same
                  // disease or trigger term is usless for the assessment.
@@ -114,5 +114,9 @@ public class DiabetesAssessmentService {
     } else {
       return AgeStates.ELDERLY;
     }
+  }
+
+  private boolean containsIgnoreCase(String note, String trigger) {
+    return note.toLowerCase().contains(trigger.toLowerCase());
   }
 }

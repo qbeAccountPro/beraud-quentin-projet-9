@@ -5,7 +5,7 @@ services:
     image: microservice-patientmanager
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/diabetedetect
-      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_USERNAME: ${MYSQL_ROOT_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     expose:
       - 9001:9001

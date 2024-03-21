@@ -33,7 +33,7 @@
 				<div class="form-group">
 					<label for="gender" class="col-sm-2 control-label">Gender</label>
 					<div class="col-sm-10">
-						<input type="text" th:field="*{gender}" id="gender" placeholder="Gender" class="col-4" pattern="[HF]"
+						<input type="text" th:field="*{gender}" id="gender" placeholder="Gender" class="col-4" pattern="[MF]"
 							title="Enter 'M' for Male or 'F' for Female" maxlength="1" required>
 						<p class="text-danger" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></p>
 					</div>

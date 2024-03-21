@@ -1,11 +1,13 @@
-package com.mediaSolutions.note.proxy;
+package com.mediaSolutions.notemanager.proxy;
 
-import com.mediaSolutions.note.bean.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.PathVariable;
+
+import com.mediaSolutions.notemanager.bean.*;
+
 import java.util.Optional;
 
 /**

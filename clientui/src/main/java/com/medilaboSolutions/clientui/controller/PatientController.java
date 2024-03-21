@@ -3,9 +3,12 @@ package com.medilaboSolutions.clientui.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,32 +48,33 @@ public class PatientController {
     }
     return "404";
   }
-  
+
   @GetMapping("/patient/{patientid}/delete")
-  public String deletePatient(@PathVariable("patientid") Integer patientid) {
+  public ResponseEntity<Object> deletePatient(@PathVariable("patientid") Integer patientid, Model model) {
     patientProxy.deletePatient(patientid);
-    return "redirect:/patient/list";
+    return ResponseEntity.status(HttpStatus.FOUND).header("Location", "/patient/list").build();
   }
+
   @PostMapping("/patient/validate")
-  public String validateAddPatient(@Valid PatientBean patientBean, BindingResult result, Model model) {
+  public ResponseEntity<Object> validateAddPatient(@Valid PatientBean patientBean, BindingResult result, Model model) {
     if (result.hasErrors()) {
       model.addAttribute("result", result);
-      return "patient/add";
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result.getAllErrors());
     }
     patientProxy.savePatient(patientBean);
-    return "redirect:/patient/list";
+    return ResponseEntity.status(HttpStatus.FOUND).header("Location", "/patient/list").build();
   }
 
   @PostMapping("/patient/{patientid}/update")
-  public String validatieUpdatePatient(@PathVariable("patientid") Integer patientid, @Valid PatientBean patientBean,
+  public ResponseEntity<List<ObjectError>> validatieUpdatePatient(@PathVariable("patientid") Integer patientid,
+      @Valid PatientBean patientBean,
       BindingResult result, Model model) {
     if (result.hasErrors()) {
       model.addAttribute("result", result);
-      return "patient/update";
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result.getAllErrors());
     }
     patientProxy.savePatient(patientBean);
-    return "redirect:/patient/list";
+    return ResponseEntity.status(HttpStatus.FOUND).header("Location", "/patient/list").build();
+
   }
-
-
 }

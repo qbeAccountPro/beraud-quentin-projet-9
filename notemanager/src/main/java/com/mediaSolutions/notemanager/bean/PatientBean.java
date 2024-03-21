@@ -1,4 +1,4 @@
-package com.mediaSolutions.note.bean;
+package com.mediaSolutions.notemanager.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

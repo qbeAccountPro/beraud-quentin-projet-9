@@ -5,9 +5,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -62,22 +65,23 @@ public class NoteController {
   }
 
   @PostMapping("/patient/{patientid}/note/validate")
-  public String validateAddNote(@Valid NoteBean note, @PathVariable("patientid") Integer patientid,
+  public ResponseEntity<List<ObjectError>> validateAddNote(@Valid NoteBean note,
+      @PathVariable("patientid") Integer patientid,
       BindingResult result, Model model) {
     if (result.hasErrors()) {
       model.addAttribute("result", result);
-      return "note/add";
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result.getAllErrors());
     } else {
       noteProxy.saveNote(note);
-      return "redirect:/patient/{patientid}/note";
+      return ResponseEntity.status(HttpStatus.FOUND).header("Location", "/patient/" + patientid.toString() + "/note").build();
     }
   }
 
   @GetMapping("/patient/{patientid}/note/{noteId}/delete")
-  public String deleteNotePatient(Model model, @PathVariable("patientid") Integer patientid,
+  public ResponseEntity<Object> deleteNotePatient(Model model, @PathVariable("patientid") Integer patientid,
       @PathVariable("noteId") String noteId) {
     noteProxy.deletePatient(noteId);
-    return "redirect:/patient/{patientid}/note";
+    return ResponseEntity.status(HttpStatus.FOUND).header("Location", "/patient/" + patientid.toString() + "/note").build();
   }
 
   @GetMapping("/patient/{patientid}/note/{noteId}/update")
@@ -95,15 +99,16 @@ public class NoteController {
   }
 
   @PostMapping("/patient/{patientid}/note/{noteid}/validate")
-  public String validateUpdateNote(@PathVariable("patientid") Integer patientid, @PathVariable("noteid") String noteid,
+  public ResponseEntity<Object> validateUpdateNote(@PathVariable("patientid") Integer patientid,
+      @PathVariable("noteid") String noteid,
       @Valid NoteBean ntoeBean, BindingResult result, Model model) {
     System.out.println("entry controller test");
     if (result.hasErrors()) {
       model.addAttribute("result", result);
-      return "note/update";
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result.getAllErrors());
     }
     noteProxy.saveNote(ntoeBean);
-    return "redirect:/patient/{patientid}/note";
-
+    return ResponseEntity.status(HttpStatus.FOUND).header("Location", "/patient/" + patientid.toString() + "/note")
+        .build();
   }
 }

@@ -1,19 +1,24 @@
-package com.mediaSolutions.note.integration;
+package com.mediaSolutions.notemanager.integration;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mediaSolutions.note.bean.PatientBean;
-import com.mediaSolutions.note.controller.NoteController;
-import com.mediaSolutions.note.model.Note;
-import com.mediaSolutions.note.proxy.PatientProxy;
-import com.mediaSolutions.note.service.NoteService;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -21,28 +26,13 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.event.TransactionalEventListener;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.when;
-
-import org.springframework.http.MediaType;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.fasterxml.jackson.core.type.TypeReference;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Optional;
-
-import javax.swing.text.html.Option;
-
-import org.junit.jupiter.api.TestInstance.Lifecycle;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mediaSolutions.notemanager.bean.PatientBean;
+import com.mediaSolutions.notemanager.controller.NoteController;
+import com.mediaSolutions.notemanager.model.Note;
+import com.mediaSolutions.notemanager.proxy.PatientProxy;
+import com.mediaSolutions.notemanager.service.NoteService;
 
 @SpringBootTest
 @TestInstance(Lifecycle.PER_CLASS)
@@ -79,7 +69,7 @@ public class NoteIntegrationsTest {
     // Arrange :
     patient.setFirstname("George");
     patient.setLastname("Wayne");
-    patient.setGender("H");
+    patient.setGender("M");
     patient.setDateofbirth("1990-02-20");
     patient.setAddress("Nowhere");
     patient.setPhone("0655554488");

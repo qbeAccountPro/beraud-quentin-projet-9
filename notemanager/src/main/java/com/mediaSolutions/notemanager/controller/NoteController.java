@@ -1,4 +1,4 @@
-package com.mediaSolutions.note.controller;
+package com.mediaSolutions.notemanager.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mediaSolutions.note.bean.PatientBean;
-import com.mediaSolutions.note.model.Note;
-import com.mediaSolutions.note.proxy.PatientProxy;
-import com.mediaSolutions.note.service.NoteService;
+import com.mediaSolutions.notemanager.bean.PatientBean;
+import com.mediaSolutions.notemanager.model.Note;
+import com.mediaSolutions.notemanager.proxy.PatientProxy;
+import com.mediaSolutions.notemanager.service.NoteService;
 
 @RestController
 @RequestMapping("/note")
@@ -83,12 +83,12 @@ public class NoteController {
       optionalPatient = patientProxy.getPatientById(Integer.parseInt(note.getPatientid()));
     } catch (Exception e) {
       optionalPatient = Optional.empty();
-      return null; // TODO : Case of the wrong value inside patient id
+      return null;
     }
     if (optionalPatient.isPresent()) {
       return noteService.saveNote(note);
     } else {
-      return null; // TODO : Case of the non-existent patient
+      return null; 
     }
   }
 

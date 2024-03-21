@@ -1,4 +1,4 @@
-package com.mediaSolutions.note.unit.controller;
+package com.mediaSolutions.notemanager.unit.controller;
 
 import org.mockito.InjectMocks;
 
@@ -21,11 +21,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.mediaSolutions.note.bean.PatientBean;
-import com.mediaSolutions.note.controller.NoteController;
-import com.mediaSolutions.note.model.Note;
-import com.mediaSolutions.note.proxy.PatientProxy;
-import com.mediaSolutions.note.service.NoteService;
+import com.mediaSolutions.notemanager.bean.PatientBean;
+import com.mediaSolutions.notemanager.controller.NoteController;
+import com.mediaSolutions.notemanager.model.Note;
+import com.mediaSolutions.notemanager.proxy.PatientProxy;
+import com.mediaSolutions.notemanager.service.NoteService;
 
 @ExtendWith(MockitoExtension.class)
 public class NoteControllerTest {
@@ -52,7 +52,7 @@ public class NoteControllerTest {
     patientTest.setId(2);
     patientTest.setFirstname("George");
     patientTest.setLastname("Wayne");
-    patientTest.setGender("H");
+    patientTest.setGender("M");
     patientTest.setDateofbirth("1990-02-20");
     patientTest.setAddress("Nowhere");
     patientTest.setPhone("0655554488");

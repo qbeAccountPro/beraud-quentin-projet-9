@@ -1,4 +1,4 @@
-package com.mediaSolutions.note.service;
+package com.mediaSolutions.notemanager.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,8 +8,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mediaSolutions.note.model.Note;
-import com.mediaSolutions.note.repository.NoteRepository;
+import com.mediaSolutions.notemanager.model.Note;
+import com.mediaSolutions.notemanager.repository.NoteRepository;
 
 /**
  * Some Javadoc :

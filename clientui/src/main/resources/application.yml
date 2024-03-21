@@ -12,6 +12,7 @@ logging:
   level:
     org.springframework: INFO
 
+microservice-gateway: microservice-gateway:9000
 microservice-patientmanager: microservice-patientmanager:9001
 microservice-notemanager: microservice-notemanager:9003
 microservice-diabetesassessment: microservice-diabetesassessment:9004
