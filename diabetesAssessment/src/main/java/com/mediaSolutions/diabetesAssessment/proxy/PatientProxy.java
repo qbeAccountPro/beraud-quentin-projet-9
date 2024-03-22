@@ -11,12 +11,20 @@ import java.util.Optional;
 /**
  * Some Javadoc :
  * 
- * This class allows access to the REST client microservice patientmanager.
- * 
+ * Interface defining the Feign client for interacting with the PatientManager
+ * microservice.
  */
 @ComponentScan
 @FeignClient(name = "microservice-patientmanager", url = "${microservice-patientmanager:9001}")
 public interface PatientProxy {
+
+  /**
+   * Retrieves a specific patient by their ID.
+   *
+   * @param id The ID of the patient to retrieve.
+   * @return An Optional containing the PatientBean object representing the
+   *         retrieved patient, if found.
+   */
   @GetMapping(value = "/patient/{id}")
   Optional<PatientBean> getPatientById(@PathVariable("id") int id);
 }

@@ -13,7 +13,7 @@
 	<artifactId>patientmanager</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>patientmanager</name>
-	<description>This microservice will be used to manage data.</description>
+	<description>This microservice will be used to manage patient data.</description>
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2023.0.0</spring-cloud.version>

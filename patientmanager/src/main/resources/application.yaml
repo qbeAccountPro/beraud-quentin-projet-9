@@ -5,12 +5,13 @@ server:
 ################### Spring Configuration #############################
 spring:
   application:
-    name: MICROSERVICE-PATIENTMANAGER
+    name: microservice-patientmanager
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/diabetedetect
     username: root
-    password: rootroot
+    password: ${MYSQL_ROOT_PASSWORD}
+
   jpa:
     hibernate:
       ddl-auto: none

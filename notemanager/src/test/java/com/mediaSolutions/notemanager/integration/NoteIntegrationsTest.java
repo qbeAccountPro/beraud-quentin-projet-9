@@ -34,6 +34,10 @@ import com.mediaSolutions.notemanager.model.Note;
 import com.mediaSolutions.notemanager.proxy.PatientProxy;
 import com.mediaSolutions.notemanager.service.NoteService;
 
+/**
+ * WARNING : the patientmanager microservice need to be on during this
+ * integration phase test.
+ */
 @SpringBootTest
 @TestInstance(Lifecycle.PER_CLASS)
 @TestPropertySource(properties = {

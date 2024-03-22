@@ -15,7 +15,7 @@ import com.mediaSolutions.diabetesAssessment.proxy.PatientProxy;
 import com.mediaSolutions.diabetesAssessment.service.DiabetesAssessmentService;
 
 /**
- * Some Javadoc:
+ * Some Javadoc :
  * 
  * Controller for handling diabetes assessment related endpoints.
  * 
@@ -39,7 +39,7 @@ public class DiabetesAssessmentController {
   }
 
   /**
-   * Some Javadoc:
+   * Some Javadoc :
    * 
    * Endpoint for retrieving diabetes assessment based on patient ID.
    * 

@@ -34,13 +34,11 @@ public class DiabetesAssessmentService {
    * @return The diabetes assessment result.
    */
   public String getDiabetesAssessment(PatientBean patient, List<NoteBean> notes) {
-
-    String ageState = getAgeState(patient.getDateofbirth());
     int triggers = getTriggers(notes);
     if (notes.size() == 0) {
       return DiabetesStates.NONE;
     } else {
-      switch (ageState) {
+      switch (getAgeState(patient.getDateofbirth())) {
         case AgeStates.YOUNG:
           switch (patient.getGender()) {
             case "M":
@@ -107,6 +105,15 @@ public class DiabetesAssessmentService {
     return triggersCount;
   }
 
+  /**
+   * Some Javadoc :
+   * 
+   * Method to define the age states.
+   * If under or equal to 30 years the patient is considering young.
+   * 
+   * @param dateOfBirthString the birthday of patient.
+   * @return the age state.
+   */
   public String getAgeState(String dateOfBirthString) {
     int age = Period.between(LocalDate.parse(dateOfBirthString), LocalDate.now()).getYears();
     if (age <= 30) {
@@ -116,6 +123,17 @@ public class DiabetesAssessmentService {
     }
   }
 
+  /**
+   * Some Javadoc :
+   * 
+   * Method for checking if a given string contains another string, ignoring the
+   * case of both strings.
+   *
+   * @param note    The string to be checked for containing the trigger.
+   * @param trigger The string to search for within the note.
+   * @return true if the note contains the trigger (ignoring case), false
+   *         otherwise.
+   */
   private boolean containsIgnoreCase(String note, String trigger) {
     return note.toLowerCase().contains(trigger.toLowerCase());
   }

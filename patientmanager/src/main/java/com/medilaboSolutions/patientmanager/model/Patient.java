@@ -29,7 +29,6 @@ public class Patient {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
   private int id;
-
   @Column(name = "first_name")
   @NotBlank(message = "Firstname is mandatory")
   @Pattern(regexp = "^[a-zA-Z'-]{1,30}$", message = "Invalid first name")

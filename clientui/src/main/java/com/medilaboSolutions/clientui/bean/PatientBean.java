@@ -1,9 +1,15 @@
-package com.medilaboSolutions.clientui.beans;
+package com.medilaboSolutions.clientui.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Some Javadoc :
+ * 
+ * This class represents a patient entity.
+ * It contains basic information about the patient.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

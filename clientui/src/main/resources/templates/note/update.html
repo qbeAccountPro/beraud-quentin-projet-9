@@ -12,7 +12,6 @@
 		<div class="row">
 			<h2>Update Note</h2>
 		</div>
-
 		<div class="row">
 			<form action="#"
 				th:action="@{/patient/{patientid}/note/{noteid}/validate(patientid=${noteBean.patientid},noteid=${noteBean.id})}" th:object="${noteBean}" method="post" class="form-horizontal" style="width: 100%">

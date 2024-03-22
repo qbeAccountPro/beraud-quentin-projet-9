@@ -15,5 +15,14 @@ import com.mediaSolutions.notemanager.model.Note;
  */
 @Repository
 public interface NoteRepository extends MongoRepository<Note, String> {
+
+  /**
+   * Some Javadoc :
+   * 
+   * Retrieves a list of note by theirs patient id.
+   * 
+   * @param patientid of the patient for whom to retrieve the notes.
+   * @return a list of note
+   */
   List<Note> findByPatientid(String patientid);
 }

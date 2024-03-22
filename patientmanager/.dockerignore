@@ -1,6 +1,6 @@
+### Basic ###
 node_modules
 .git
-
 HELP.md
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
@@ -33,3 +33,4 @@ build/
 
 ### VS Code ###
 .vscode/
+.env

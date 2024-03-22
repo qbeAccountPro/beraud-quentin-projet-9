@@ -15,13 +15,7 @@ spring:
           uri: http://localhost:9002/static
           predicates:
             - Path=/css/**
-            - Path=/patient/css/**
-        - id: microservice_route
-          uri: http://localhost:9000/**
-          predicates:
-            - Path=/microservice/**
-          
-
+            - Path=/patient/css/**          
   application:
     name: microservice-gateway
 

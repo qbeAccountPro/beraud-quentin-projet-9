@@ -5,6 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.medilaboSolutions.clientui.proxies.GatewayProxy;
 
+/**
+ * Some Javadoc :
+ * 
+ * Controller class responsible for handling requests related to "Gateway" operations.
+ */
 @Controller
 public class GatewayController {
 
@@ -14,6 +19,11 @@ public class GatewayController {
     this.gatewayProxy = gatewayProxy;
   }
 
+  /** 
+   * Some Javadoc :
+   * 
+   * Method to handling logout request.
+   */
   @GetMapping("/app-logout")
   public void getLogout() {
     gatewayProxy.getLogout();

@@ -17,6 +17,8 @@ import com.medilaboSolutions.patientmanager.model.Patient;
 import com.medilaboSolutions.patientmanager.service.PatientService;
 
 /**
+ * Some Javadoc :
+ * 
  * Controller class for managing Patient entities.
  * 
  * Handles CRUD operations for Patient objects, including listing, adding,

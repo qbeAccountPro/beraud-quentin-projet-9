@@ -1,7 +1,7 @@
 package com.mediaSolutions.diabetesAssessment.constant;
 
 /**
- * Some Javadoc:
+ * Some Javadoc :
  * 
  * Represents diabetes states.
  * 

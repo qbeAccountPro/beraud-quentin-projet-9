@@ -21,24 +21,33 @@ import org.springframework.security.web.server.authentication.logout.ServerLogou
 /**
  * Some javadoc :
  * 
- * This class represents the configuration of Spring Security.
+ * Configuration class for Spring Security.
  */
 @Configuration
 @EnableWebFluxSecurity
 public class SpringSecurityConfig {
 
   /**
-   * Some javadoc :
+   * Some Javadoc :
    * 
-   * This method is used to create a test user.
+   * Bean method to create a test user with username "user" and password "user".
+   *
+   * @return a MapReactiveUserDetailsService containing the test user.
    */
   @Bean
   public MapReactiveUserDetailsService userDetailsService() {
-    // 
     UserDetails user = User.withUsername("user").password(passwordEncoder().encode("user")).build();
     return new MapReactiveUserDetailsService(user);
   }
 
+  /**
+   * Some Javadoc :
+   * 
+   * Configure the logout success handler to redirect to the login
+   * page after logout.
+   *
+   * @return a RedirectServerLogoutSuccessHandler for handling logout success.
+   */
   @Bean
   public ServerLogoutSuccessHandler logoutSuccessHandler() {
     RedirectServerLogoutSuccessHandler handler = new RedirectServerLogoutSuccessHandler();
@@ -46,6 +55,15 @@ public class SpringSecurityConfig {
     return handler;
   }
 
+  /**
+   * Some Javadoc :
+   * 
+   * This method configures the authentication success handler to redirect to the
+   * patient list page after login.
+   *
+   * @return a RedirectServerAuthenticationSuccessHandler for handling
+   *         authentication success.
+   */
   @Bean
   public ServerAuthenticationSuccessHandler authenticationSuccessHandler() {
     RedirectServerAuthenticationSuccessHandler handler = new RedirectServerAuthenticationSuccessHandler();
@@ -53,6 +71,16 @@ public class SpringSecurityConfig {
     return handler;
   }
 
+  /**
+   * Some Javadoc :
+   * 
+   * This method configures the security filter chain for the application.
+   *
+   * @param http the ServerHttpSecurity object to configure security settings.
+   * @return a SecurityWebFilterChain object representing the configured security
+   *         filter chain.
+   * @throws Exception if an error occurs during configuration.
+   */
   @Bean
   public SecurityWebFilterChain filterChain(ServerHttpSecurity http) throws Exception {
     return http

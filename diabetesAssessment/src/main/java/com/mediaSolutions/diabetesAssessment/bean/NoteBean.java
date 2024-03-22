@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 /**
  * Some Javadoc :
  * 
- * This class represent the bean note entity.
+ * This class represent the note entity.
  */
 @Data
 @AllArgsConstructor

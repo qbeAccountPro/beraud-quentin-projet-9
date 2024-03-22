@@ -44,10 +44,10 @@ public class NoteController {
     return noteService.findAll();
   }
 
-    /**
+  /**
    * Some javadoc :
    * 
-   * This method retrieves a list of all note.
+   * This method retrieves a list of all note from a specific patient.
    *
    * @return a list of all note.
    */
@@ -88,7 +88,7 @@ public class NoteController {
     if (optionalPatient.isPresent()) {
       return noteService.saveNote(note);
     } else {
-      return null; 
+      return null;
     }
   }
 
