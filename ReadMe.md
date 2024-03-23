@@ -120,9 +120,17 @@ After this, you need to create a Docker image for each microservice. Execute the
 
 ```
 docker build -t microservice-diabetesassessment:latest .
-docker build -t microservice-notemanager:latest . 
+```
+```
+docker build -t microservice-notemanager:latest .
+``` 
+```
 docker build -t microservice-patientmanager:latest .
+```
+```
 docker build -t microservice-clientui:latest .
+```
+```
 docker build -t microservice-gateway:latest .
 ```
 
