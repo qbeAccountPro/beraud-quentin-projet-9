@@ -19,9 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.medilaboSolutions.clientui.bean.NoteBean;
 import com.medilaboSolutions.clientui.bean.PatientBean;
-import com.medilaboSolutions.clientui.proxies.DiabetesAssessmentProxy;
-import com.medilaboSolutions.clientui.proxies.NoteProxy;
-import com.medilaboSolutions.clientui.proxies.PatientProxy;
+import com.medilaboSolutions.clientui.proxies.GatewayProxy;
 
 /**
  * Some Javadoc :
@@ -32,15 +30,10 @@ import com.medilaboSolutions.clientui.proxies.PatientProxy;
 @Controller
 public class NoteController {
 
-  private final PatientProxy patientProxy;
-  private final NoteProxy noteProxy;
-  private final DiabetesAssessmentProxy diabetesAssessmentProxy;
+  private final GatewayProxy gatewayProxy;
 
-  public NoteController(PatientProxy patientProxy, NoteProxy noteProxy,
-      DiabetesAssessmentProxy diabetesAssessmentProxy) {
-    this.patientProxy = patientProxy;
-    this.noteProxy = noteProxy;
-    this.diabetesAssessmentProxy = diabetesAssessmentProxy;
+  public NoteController(GatewayProxy gatewayProxy) {
+    this.gatewayProxy = gatewayProxy;
   }
 
   /**
@@ -54,12 +47,12 @@ public class NoteController {
    */
   @GetMapping("/patient/{patientid}/note")
   public String getNotePatient(Model model, @PathVariable("patientid") Integer patientid) {
-    Optional<PatientBean> patient = patientProxy.getPatientById(patientid);
-    List<NoteBean> notes = noteProxy.getAllNote(patientid);
+    Optional<PatientBean> patient = gatewayProxy.getPatientById(patientid);
+    List<NoteBean> notes = gatewayProxy.getAllNote(patientid);
     if (patient.isPresent()) {
       model.addAttribute("patient", patient.get());
       model.addAttribute("notes", notes);
-      model.addAttribute("diabetesAssessment", diabetesAssessmentProxy.getDiabetesAssessment(patient.get().getId()));
+      model.addAttribute("diabetesAssessment", gatewayProxy.getDiabetesAssessment(patient.get().getId()));
       return "note/list";
     } else {
       return "404";
@@ -79,7 +72,7 @@ public class NoteController {
   @GetMapping("patient/{patientid}/note/add")
   public String addNotePatient(NoteBean noteBean, Model model, @PathVariable("patientid") Integer patientid) {
     String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-dd-MM"));
-    Optional<PatientBean> patient = patientProxy.getPatientById(patientid);
+    Optional<PatientBean> patient = gatewayProxy.getPatientById(patientid);
     if (patient.isPresent()) {
       model.addAttribute("patient", patient.get());
     } else {
@@ -110,7 +103,7 @@ public class NoteController {
       model.addAttribute("result", result);
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result.getAllErrors());
     } else {
-      noteProxy.saveNote(note);
+      gatewayProxy.saveNote(note);
       return ResponseEntity.status(HttpStatus.FOUND).header("Location", "/patient/" + patientid.toString() + "/note")
           .build();
     }
@@ -130,7 +123,7 @@ public class NoteController {
   @GetMapping("/patient/{patientid}/note/{noteId}/delete")
   public ResponseEntity<Object> deleteNotePatient(Model model, @PathVariable("patientid") Integer patientid,
       @PathVariable("noteId") String noteId) {
-    noteProxy.deletePatient(noteId);
+    gatewayProxy.deletePatient(noteId);
     return ResponseEntity.status(HttpStatus.FOUND).header("Location", "/patient/" + patientid.toString() + "/note")
         .build();
   }
@@ -149,7 +142,7 @@ public class NoteController {
   @GetMapping("/patient/{patientid}/note/{noteId}/update")
   public String updateNotePatient(Model model, @PathVariable("patientid") Integer patientid,
       @PathVariable("noteId") String noteId) {
-    Optional<NoteBean> optionalNote = noteProxy.getNoteById(noteId);
+    Optional<NoteBean> optionalNote = gatewayProxy.getNoteById(noteId);
     if (optionalNote.isPresent()) {
       model.addAttribute("patientid", patientid);
       NoteBean test = optionalNote.get();
@@ -182,7 +175,7 @@ public class NoteController {
       model.addAttribute("result", result);
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result.getAllErrors());
     }
-    noteProxy.saveNote(noteBean);
+    gatewayProxy.saveNote(noteBean);
     return ResponseEntity.status(HttpStatus.FOUND).header("Location", "/patient/" + patientid.toString() + "/note")
         .build();
   }

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.medilaboSolutions.clientui.bean.PatientBean;
-import com.medilaboSolutions.clientui.proxies.PatientProxy;
+import com.medilaboSolutions.clientui.proxies.GatewayProxy;
 
 /**
  * Some Javadoc :
@@ -27,10 +27,10 @@ import com.medilaboSolutions.clientui.proxies.PatientProxy;
 @Controller
 public class PatientController {
 
-  private final PatientProxy patientProxy;
+  private final GatewayProxy gatewayProxy;
 
-  public PatientController(PatientProxy patientProxy) {
-    this.patientProxy = patientProxy;
+  public PatientController(GatewayProxy gatewayProxy) {
+    this.gatewayProxy = gatewayProxy;
   }
 
   /**
@@ -43,7 +43,7 @@ public class PatientController {
    */
   @GetMapping("/patient/list")
   public String getListPatient(Model model) {
-    List<PatientBean> patients = patientProxy.getAllPatient();
+    List<PatientBean> patients = gatewayProxy.getAllPatient();
     model.addAttribute("patients", patients);
     return "patient/list";
   }
@@ -72,7 +72,7 @@ public class PatientController {
    */
   @GetMapping("/patient/{patientid}/update")
   public String updatePatient(@PathVariable("patientid") Integer patientid, Model model) {
-    Optional<PatientBean> optionalPatient = patientProxy.getPatientById(patientid);
+    Optional<PatientBean> optionalPatient = gatewayProxy.getPatientById(patientid);
     if (optionalPatient.isPresent()) {
       model.addAttribute("patientBean", optionalPatient.get());
       return "patient/update";
@@ -91,7 +91,7 @@ public class PatientController {
    */
   @GetMapping("/patient/{patientid}/delete")
   public ResponseEntity<Object> deletePatient(@PathVariable("patientid") Integer patientid, Model model) {
-    patientProxy.deletePatient(patientid);
+    gatewayProxy.deletePatient(patientid);
     return ResponseEntity.status(HttpStatus.FOUND).header("Location", "/patient/list").build();
   }
 
@@ -112,7 +112,7 @@ public class PatientController {
       model.addAttribute("result", result);
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result.getAllErrors());
     }
-    patientProxy.savePatient(patientBean);
+    gatewayProxy.savePatient(patientBean);
     return ResponseEntity.status(HttpStatus.FOUND).header("Location", "/patient/list").build();
   }
 
@@ -136,7 +136,7 @@ public class PatientController {
       model.addAttribute("result", result);
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result.getAllErrors());
     }
-    patientProxy.savePatient(patientBean);
+    gatewayProxy.savePatient(patientBean);
     return ResponseEntity.status(HttpStatus.FOUND).header("Location", "/patient/list").build();
   }
 }

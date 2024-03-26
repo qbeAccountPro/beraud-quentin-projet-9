@@ -11,11 +11,45 @@ spring:
           uri: http://localhost:9002
           predicates:
             - Path=/patient/**
+
         - id: clientui-css
           uri: http://localhost:9002/static
           predicates:
             - Path=/css/**
-            - Path=/patient/css/**          
+            - Path=/patient/css/**
+
+        - id: notemanager-one
+          uri: http://localhost:9003
+          predicates:
+            - Path=/notemanagerone
+          filters:
+            - RewritePath=/notemanagerone, /note
+        
+        - id: notemanager-all
+          uri: http://localhost:9003
+          predicates:
+            - Path=/notemanagerall/**
+          filters:
+            - RewritePath=/notemanagerall/?(?<segment>.*), /note/$\{segment}
+
+        - id: getpatientbyid
+          uri: http://localhost:9001
+          predicates:
+            - Path=/patientmanagerbyid/**
+          filters:
+            - RewritePath=/patientmanagerbyid/?(?<segment>.*), /patient/$\{segment}
+
+        - id: getallpatient
+          uri: http://localhost:9001
+          predicates:
+            - Path=/patientmanager
+          filters:
+            - RewritePath=/patientmanager, /patient
+            
+        - id: diabetesassessment
+          uri: http://localhost:9004
+          predicates:
+            - Path=/diabetesAssessment/**
   application:
     name: microservice-gateway
 

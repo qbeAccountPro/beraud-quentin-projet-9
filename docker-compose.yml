@@ -39,6 +39,31 @@ services:
       SPRING_CLOUD_GATEWAY_ROUTES[0]_ID: microservice-clientui
       SPRING_CLOUD_GATEWAY_ROUTES[0]_URI: http://microservice-clientui:9002
       SPRING_CLOUD_GATEWAY_ROUTES[0]_PREDICATES[0]: Path=/patient/**
+      
       SPRING_CLOUD_GATEWAY_ROUTES[1]_ID: microservice-clientui-css
       SPRING_CLOUD_GATEWAY_ROUTES[1]_URI: http://microservice-clientui:9002/static
       SPRING_CLOUD_GATEWAY_ROUTES[1]_PREDICATES[0]: Path=/css/**
+      
+      SPRING_CLOUD_GATEWAY_ROUTES[2]_ID: microservice-notemanager-one
+      SPRING_CLOUD_GATEWAY_ROUTES[2]_URI: http://microservice-notemanager:9003
+      SPRING_CLOUD_GATEWAY_ROUTES[2]_PREDICATES[0]: Path=/notemanagerone
+      SPRING_CLOUD_GATEWAY_ROUTES[2]_FILTERS[0]: RewritePath=/notemanagerone, /note
+
+      SPRING_CLOUD_GATEWAY_ROUTES[3]_ID: microservice-notemanager-all
+      SPRING_CLOUD_GATEWAY_ROUTES[3]_URI: http://microservice-notemanager:9003
+      SPRING_CLOUD_GATEWAY_ROUTES[3]_PREDICATES[0]: Path=/notemanagerall/**
+      SPRING_CLOUD_GATEWAY_ROUTES[3]_FILTERS[0]: RewritePath=/notemanagerall/?(?<segment>.*), /note/$\{segment}
+      
+      SPRING_CLOUD_GATEWAY_ROUTES[4]_ID: microservice-patientmanager-getpatientbyid
+      SPRING_CLOUD_GATEWAY_ROUTES[4]_URI: http://microservice-patientmanager:9001
+      SPRING_CLOUD_GATEWAY_ROUTES[4]_PREDICATES[0]: Path=/patientmanagerbyid/**
+      SPRING_CLOUD_GATEWAY_ROUTES[4]_FILTERS[0]: RewritePath=/patientmanagerbyid/?(?<segment>.*), /patient/$\{segment}
+      
+      SPRING_CLOUD_GATEWAY_ROUTES[5]_ID: microservice-patientmanager-getallpatient
+      SPRING_CLOUD_GATEWAY_ROUTES[5]_URI: http://microservice-patientmanager:9001
+      SPRING_CLOUD_GATEWAY_ROUTES[5]_PREDICATES[0]: Path=/patientmanager
+      SPRING_CLOUD_GATEWAY_ROUTES[5]_FILTERS[0]: RewritePath=/patientmanager, /patient
+
+      SPRING_CLOUD_GATEWAY_ROUTES[6]_ID: microservice-diabetesassessment
+      SPRING_CLOUD_GATEWAY_ROUTES[6]_URI: http://microservice-diabetesassessment:9004
+      SPRING_CLOUD_GATEWAY_ROUTES[6]_PREDICATES[0]: Path=/diabetesAssessment/**
